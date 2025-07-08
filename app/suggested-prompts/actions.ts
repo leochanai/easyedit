@@ -24,18 +24,12 @@ export async function getSuggestions(
   const apiKey = userAPIKey;
 
   try {
-    const response = await fetch(`${baseUrl}/v1/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
-        messages: [
-          {
-            role: "system",
-            content: dedent`
+    const requestBody = {
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content: dedent`
             # General Instructions
               You will be shown an image that a user wants to edit using AI-powered prompting. Analyze the image and suggest exactly 3 simple, practical edits that would improve or meaningfully change the image. Each suggestion should be:
 
@@ -72,39 +66,84 @@ export async function getSuggestions(
 
             ONLY RESPOND IN JSON. NOTHING ELSE.
               `,
-          },
-          {
-            role: "user",
-            content: [
-              {
-                type: "image_url",
-                image_url: {
-                  url: imageUrl,
-                },
+        },
+        {
+          role: "user",
+          content: [
+            {
+              type: "image_url",
+              image_url: {
+                url: imageUrl,
               },
-            ],
-          },
-        ],
-        // response_format: { type: "json_schema", schema: jsonSchema },
-      }),
+            },
+          ],
+        },
+      ],
+      // response_format: { type: "json_schema", schema: jsonSchema },
+    };
+
+    console.log("=== 建议提示 API 请求信息 ===");
+    console.log("URL:", `${baseUrl}/v1/chat/completions`);
+    console.log("图片 URL:", imageUrl);
+    console.log("模型:", requestBody.model);
+    console.log("============================");
+
+    const response = await fetch(`${baseUrl}/v1/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(requestBody),
     });
 
+    console.log("=== 建议提示 API 响应信息 ===");
+    console.log("状态码:", response.status);
+    console.log("状态文本:", response.statusText);
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      console.log("错误响应内容:", errorText);
+      console.log("============================");
+      throw new Error(
+        `HTTP error! status: ${response.status}, body: ${errorText}`,
+      );
     }
 
     const responseData = await response.json();
+    console.log("成功响应内容:", JSON.stringify(responseData, null, 2));
+    console.log("============================");
 
-    if (!responseData?.choices?.[0]?.message?.content) return [];
+    if (!responseData?.choices?.[0]?.message?.content) {
+      console.log("=== 解析失败 ===");
+      console.log("响应中缺少 choices[0].message.content");
+      console.log("===============");
+      return [];
+    }
 
     const json = JSON.parse(responseData?.choices?.[0]?.message?.content);
     const result = schema.safeParse(json);
 
-    if (result.error) return [];
+    if (result.error) {
+      console.log("=== 验证失败 ===");
+      console.log("解析的 JSON:", json);
+      console.log("验证错误:", result.error);
+      console.log("===============");
+      return [];
+    }
 
+    console.log("=== 建议提示生成成功 ===");
+    console.log("生成的建议:", result.data);
+    console.log("======================");
     return result.data;
   } catch (error) {
-    console.error("Error getting suggestions:", error);
+    console.log("=== 建议提示 API 请求异常 ===");
+    console.log("错误信息:", error instanceof Error ? error.message : error);
+    console.log(
+      "错误堆栈:",
+      error instanceof Error ? error.stack : "无堆栈信息",
+    );
+    console.log("============================");
     return [];
   }
 }

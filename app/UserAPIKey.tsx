@@ -24,11 +24,11 @@ export function UserAPIKey() {
       <div className="text-left text-xs max-md:hidden">
         <p className="text-gray-600">[必需] 添加您的</p>
         <a
-          href="https://api.katonai.dev/settings/api-keys"
+          href="https://docs.katonai.dev/guide/basic/inner_usage.html#%E5%88%9B%E5%BB%BA%E4%BB%A4%E7%89%8C"
           target="_blank"
           className="text-gray-300 underline"
         >
-          KatonAI API 密钥:
+          获取 API 密钥:
         </a>
       </div>
       <input

@@ -101,7 +101,7 @@ export function ImageUploader({
       className={clsx(
         isDragging && "text-gray-400",
         !isDragging && !pending && "text-gray-700 hover:text-gray-400",
-        "relative flex aspect-[4/3] w-full cursor-pointer flex-col items-center justify-center rounded-xl bg-gray-900 focus-visible:text-gray-400 focus-visible:outline-none",
+        "relative mx-auto flex aspect-[4/3] w-full max-w-md cursor-pointer flex-col items-center justify-center rounded-xl bg-gray-900 focus-visible:text-gray-400 focus-visible:outline-none",
       )}
     >
       <svg

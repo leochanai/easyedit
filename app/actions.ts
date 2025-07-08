@@ -11,8 +11,8 @@ const schema = z.object({
   height: z.number(),
   userAPIKey: z.string().nullable(),
   model: z
-    .enum(["flux-kontext-pro", "flux-kontext-max"])
-    .default("flux-kontext-pro"),
+    .enum(["flux-kontext-dev", "flux-kontext-pro", "flux-kontext-max"])
+    .default("flux-kontext-dev"),
 });
 
 export async function generateImage(
@@ -40,22 +40,26 @@ export async function generateImage(
 
   let url;
   try {
+    const requestBody = {
+      model,
+      prompt: fullPrompt,
+      width: adjustedDimensions.width,
+      height: adjustedDimensions.height,
+      n: 1,
+    };
+
     const response = await fetch(`${baseUrl}/v1/images/generations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       },
-      body: JSON.stringify({
-        model,
-        prompt: fullPrompt,
-        width: adjustedDimensions.width,
-        height: adjustedDimensions.height,
-        n: 1,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+
       if (response.status === 403) {
         return {
           success: false,
@@ -63,19 +67,25 @@ export async function generateImage(
             "您需要付费的 KatonAI 账户才能使用此模型。请通过购买积分升级。",
         };
       }
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(
+        `HTTP error! status: ${response.status}, body: ${errorText}`,
+      );
     }
 
     const json = await response.json();
     url = json.data[0].url;
   } catch (e: any) {
-    console.log(e);
     if (e.toString().includes("403")) {
       return {
         success: false,
         error: "您需要付费的 KatonAI 账户才能使用此模型。请通过购买积分升级。",
       };
     }
+
+    return {
+      success: false,
+      error: `请求失败: ${e.message}`,
+    };
   }
 
   if (url) {

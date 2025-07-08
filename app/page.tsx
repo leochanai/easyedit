@@ -341,7 +341,7 @@ export default function Home() {
                         className="mr-2 w-full px-3 py-4 pr-14 focus-visible:outline-none disabled:opacity-50 md:hidden"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="告诉我们您想要的更改..."
+                        placeholder="告诉我们您想要的更改（请使用英文，Flux 仅支持英文）..."
                         required
                       />
 
@@ -353,7 +353,7 @@ export default function Home() {
                         className="mr-2 w-full px-4 py-5 pr-14 focus-visible:outline-none disabled:opacity-50 max-md:hidden"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="告诉我们您想要的更改..."
+                        placeholder="告诉我们您想要的更改（请使用英文，Flux 仅支持英文）..."
                         required
                       />
 
