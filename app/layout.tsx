@@ -69,7 +69,7 @@ export default function RootLayout({
         <header className="relative flex p-4 text-center text-white">
           <UserAPIKey />
           <a
-            href="https://easyedit.io"
+            href="https://katon-easyedit.vercel.app"
             className="absolute left-1/2 flex grow -translate-x-1/2 items-center gap-2 text-lg max-md:hidden"
           >
             <Logo />
@@ -78,7 +78,7 @@ export default function RootLayout({
 
           <div className="absolute top-4 right-4 flex gap-2">
             <a
-              href="https://github.com/Nutlope/easyedit"
+              href="https://github.com/hellokaton/easyedit"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-8 cursor-pointer items-center gap-2 rounded border-[0.5px] border-gray-700 bg-gray-900 px-3.5 text-gray-200 transition hover:bg-gray-800"
@@ -96,7 +96,7 @@ export default function RootLayout({
               <span className="hidden md:inline">Star on GitHub</span>
             </a>
             <a
-              href="https://easyedit.io"
+              href="https://katon-easyedit.vercel.app"
               className="hidden h-8 cursor-pointer items-center gap-2 rounded border-[0.5px] border-gray-700 bg-gray-900 px-3.5 text-gray-200 transition hover:bg-gray-800 md:flex"
             >
               <PlusIcon />
@@ -132,7 +132,7 @@ export default function RootLayout({
           </p>
           <div className="flex gap-3 text-sm">
             <a
-              href="https://github.com/Nutlope/easyedit"
+              href="https://github.com/hellokaton/easyedit"
               target="_blank"
               className="flex h-7 items-center gap-1 rounded border-[0.5px] border-gray-700 px-2.5 text-gray-400 transition-colors hover:border-gray-300 hover:text-gray-300"
             >
@@ -140,7 +140,7 @@ export default function RootLayout({
               GitHub
             </a>
             <a
-              href="https://x.com/nutlope"
+              href="https://x.com/hellokaton"
               target="_blank"
               className="flex h-7 items-center gap-1 rounded border-[0.5px] border-gray-700 px-2.5 text-gray-400 transition-colors hover:border-gray-300 hover:text-gray-300"
             >
