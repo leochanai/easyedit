@@ -1,4 +1,4 @@
-<a href="https://www.easyedit.io/">
+<a href="https://katon-easyedit.vercel.app/">
   <img alt="EasyEdit" src="./public/og-image.png">
   <h1 align="center">EasyEdit</h1>
 </a>
@@ -17,10 +17,10 @@
 
 ## Cloning & running
 
-1. Clone the repo: `git clone https://github.com/Nutlope/easyedit`
+1. Clone the repo: `git clone https://github.com/hellokaton/easyedit`
 2. Create a `.env.local` file and add your KatonAI API configuration:
    ```
-   BASE_URL=https://your-katonai-endpoint.com
+   BASE_URL=https://api.katonai.dev
    API_KEY=your-api-key
    ```
-3. Run `npm install` and `npm run dev` to install dependencies and run locally
+3. Run `pnpm install` and `pnpm dev` to install dependencies and run locally
