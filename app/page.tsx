@@ -31,7 +31,6 @@ export default function Home() {
   const [selectedModel, setSelectedModel] = useState<
     "flux-kontext-pro" | "flux-kontext-max"
   >("flux-kontext-pro");
-  const [hasApiKey, setHasApiKey] = useState(false);
 
   const activeImage = images.find((i) => i.url === activeImageUrl);
   const lastImage = images.at(-1);
@@ -58,8 +57,6 @@ export default function Home() {
     const checkApiKey = () => {
       const apiKey = localStorage.getItem("katonaiApiKey");
       const hasKey = !!apiKey;
-      setHasApiKey(hasKey);
-
       // 如果没有 API 密钥，则使用 Pro 模型作为默认
       if (!hasKey && selectedModel === "flux-kontext-max") {
         setSelectedModel("flux-kontext-pro");
