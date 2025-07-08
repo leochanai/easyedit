@@ -1,7 +1,42 @@
 import clsx from "clsx";
-import { getImageData, useS3Upload } from "next-s3-upload";
 import { useRef, useState, useTransition } from "react";
 import Spinner from "./Spinner";
+
+// 自定义 hook 来处理 R2 上传
+function useR2Upload() {
+  const uploadToR2 = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetch("/api/s3-upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("上传失败");
+    }
+
+    return await response.json();
+  };
+
+  return { uploadToR2 };
+}
+
+// 获取图片信息的函数
+function getImageData(file: File): Promise<{ width: number; height: number }> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({
+        width: img.naturalWidth,
+        height: img.naturalHeight,
+      });
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+}
 
 export function ImageUploader({
   onUpload,
@@ -18,24 +53,29 @@ export function ImageUploader({
 }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const { uploadToS3 } = useS3Upload();
+  const { uploadToR2 } = useR2Upload();
   const [pending, startTransition] = useTransition();
 
   async function handleUpload(file: File) {
     startTransition(async () => {
-      const [result, data] = await Promise.all([
-        uploadToS3(file),
-        getImageData(file),
-      ]);
+      try {
+        const [result, data] = await Promise.all([
+          uploadToR2(file),
+          getImageData(file),
+        ]);
 
-      console.log(result.url);
-      console.log(data);
+        console.log(result.url);
+        console.log(data);
 
-      onUpload({
-        url: result.url,
-        width: data.width ?? 1024,
-        height: data.height ?? 768,
-      });
+        onUpload({
+          url: result.url,
+          width: data.width ?? 1024,
+          height: data.height ?? 768,
+        });
+      } catch (error) {
+        console.error("上传失败:", error);
+        // 可以在这里添加错误处理，比如显示错误提示
+      }
     });
   }
 
@@ -85,8 +125,8 @@ export function ImageUploader({
       {!pending ? (
         <>
           <div className="flex grow flex-col justify-center">
-            <p className="text-xl text-white">Drop a photo</p>
-            <p className="mt-1 text-gray-500">or click to upload</p>
+            <p className="text-xl text-white">拖放图片</p>
+            <p className="mt-1 text-gray-500">或点击上传</p>
           </div>
 
           <div className="pb-3">
@@ -98,7 +138,7 @@ export function ImageUploader({
       ) : (
         <div className="text-white">
           <Spinner />
-          <p className="mt-2 text-lg">Uploading...</p>
+          <p className="mt-2 text-lg">上传中...</p>
         </div>
       )}
 

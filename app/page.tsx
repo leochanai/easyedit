@@ -29,8 +29,8 @@ export default function Home() {
   const [prompt, setPrompt] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const [selectedModel, setSelectedModel] = useState<
-    "flux-kontext-dev" | "flux-kontext-pro"
-  >("flux-kontext-dev");
+    "flux-kontext-pro" | "flux-kontext-max"
+  >("flux-kontext-pro");
   const [hasApiKey, setHasApiKey] = useState(false);
 
   const activeImage = images.find((i) => i.url === activeImageUrl);
@@ -60,9 +60,9 @@ export default function Home() {
       const hasKey = !!apiKey;
       setHasApiKey(hasKey);
 
-      // If Pro model is selected but no API key, switch to Dev model
-      if (!hasKey && selectedModel === "flux-kontext-pro") {
-        setSelectedModel("flux-kontext-dev");
+      // 如果没有 API 密钥，则使用 Pro 模型作为默认
+      if (!hasKey && selectedModel === "flux-kontext-max") {
+        setSelectedModel("flux-kontext-pro");
       }
     };
 
@@ -169,7 +169,7 @@ export default function Home() {
           {!activeImage ? (
             <>
               <h1 className="mx-auto max-w-md text-center text-2xl text-balance text-white md:text-4xl">
-                Edit any image with a simple prompt
+                用简单的提示编辑任何图片
               </h1>
 
               <div className="mt-8">
@@ -217,7 +217,7 @@ export default function Home() {
                     </div>
                     {activeImage.prompt && (
                       <div>
-                        <p className="text-xs text-gray-400">Prompt used:</p>
+                        <p className="text-xs text-gray-400">使用的提示:</p>
                         <p className="text-sm text-gray-50 md:text-base">
                           {activeImage.prompt}
                         </p>
@@ -225,7 +225,7 @@ export default function Home() {
                     )}
                   </div>
                   <button
-                    title="Download this image"
+                    title="下载此图片"
                     onClick={handleDownload}
                     className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full bg-white text-gray-900 transition hover:bg-gray-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
@@ -239,10 +239,10 @@ export default function Home() {
                   <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gray-900/75">
                     <Spinner className="size-6 text-white" />
                     <p className="animate-pulse text-xl text-white">
-                      Editing your image...
+                      正在编辑您的图片...
                     </p>
                     <p className="text-sm text-gray-400">
-                      This can take up to 15 seconds.
+                      这可能需要最多 15 秒钟。
                     </p>
                   </div>
                 )}
@@ -294,7 +294,7 @@ export default function Home() {
                         htmlFor="model-select"
                         className="mb-2 block text-sm font-medium text-gray-300"
                       >
-                        Model
+                        模型
                       </label>
                       <div className="relative">
                         <select
@@ -307,15 +307,11 @@ export default function Home() {
                           }
                           className="w-full appearance-none rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          <option value="flux-kontext-dev">
-                            Flux Kontext Dev
+                          <option value="flux-kontext-pro">
+                            Flux Kontext Pro
                           </option>
-                          <option
-                            value="flux-kontext-pro"
-                            disabled={!hasApiKey}
-                          >
-                            Flux Kontext Pro{" "}
-                            {!hasApiKey && "(KatonAI API key required)"}
+                          <option value="flux-kontext-max">
+                            Flux Kontext Max
                           </option>
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
@@ -334,12 +330,6 @@ export default function Home() {
                           </svg>
                         </div>
                       </div>
-                      {!hasApiKey && selectedModel === "flux-kontext-pro" && (
-                        <p className="mt-1 text-xs text-amber-400">
-                          Pro model requires an API key. Please add your KatonAI
-                          API key to use this model.
-                        </p>
-                      )}
                     </div>
 
                     <Fieldset className="relative rounded-xl bg-gray-900">
@@ -351,7 +341,7 @@ export default function Home() {
                         className="mr-2 w-full px-3 py-4 pr-14 focus-visible:outline-none disabled:opacity-50 md:hidden"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="Tell us the changes you want..."
+                        placeholder="告诉我们您想要的更改..."
                         required
                       />
 
@@ -363,7 +353,7 @@ export default function Home() {
                         className="mr-2 w-full px-4 py-5 pr-14 focus-visible:outline-none disabled:opacity-50 max-md:hidden"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
-                        placeholder="Tell us the changes you want..."
+                        placeholder="告诉我们您想要的更改..."
                         required
                       />
 
@@ -404,9 +394,9 @@ export default function Home() {
                       }}
                       className="cursor-pointer rounded leading-none text-sky-500 focus-visible:outline focus-visible:outline-offset-4 focus-visible:outline-sky-500"
                     >
-                      Select the latest version
+                      选择最新版本
                     </button>{" "}
-                    to make more edits.
+                    以进行更多编辑。
                   </p>
                 )}
               </div>

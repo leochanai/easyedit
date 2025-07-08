@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "napkinsdev.s3.us-east-1.amazonaws.com",
+        hostname: "**", // 允许任何 R2 自定义域名
       },
       {
         protocol: "https",
@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "fal.media",
+      },
+      {
+        protocol: "https",
+        hostname: "*.r2.cloudflarestorage.com", // R2 默认域名
       },
     ],
   },

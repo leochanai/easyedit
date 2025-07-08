@@ -4,25 +4,42 @@
 </a>
 
 <p align="center">
-  Edit images with a single prompt. Powered by Flux through KatonAI.
+  用一个提示编辑图片。由 KatonAI 提供的 Flux Kontext 驱动。
 </p>
 
-> **Note**: This project is forked from [Nutlope/easyedit](https://github.com/Nutlope/easyedit)
+> **注意**: 此项目 fork 自 [Nutlope/easyedit](https://github.com/Nutlope/easyedit)
 
-## Tech stack
+## 技术栈
 
-- Flux Kontext from BFL for the image model
-- [KatonAI](https://api.katonai.dev) for inference
-- Next.js app router with Tailwind
-- Helicone for observability
-- Plausible for website analytics
+- Flux Kontext Pro/Max 模型来自 BFL
+- [KatonAI](https://api.katonai.dev) 用于推理
+- Next.js app router 和 Tailwind
+- Cloudflare R2 用于图片存储
+- Plausible 用于网站分析
 
-## Cloning & running
+## 重要说明
 
-1. Clone the repo: `git clone https://github.com/hellokaton/easyedit`
-2. Create a `.env.local` file and add your KatonAI API configuration:
+**此版本只支持 Flux Kontext Pro 和 Max 模型，需要 KatonAI API 密钥。**
+
+## 克隆和运行
+
+1. 克隆仓库: `git clone https://github.com/hellokaton/easyedit`
+2. 创建 `.env.local` 文件并添加您的配置:
+
    ```
    BASE_URL=https://api.katonai.dev
-   API_KEY=your-api-key
+
+   # Cloudflare R2 配置
+   CLOUDFLARE_R2_ACCOUNT_ID=your_account_id
+   CLOUDFLARE_R2_ACCESS_KEY_ID=your_access_key_id
+   CLOUDFLARE_R2_SECRET_ACCESS_KEY=your_secret_access_key
+   CLOUDFLARE_R2_BUCKET_NAME=your_bucket_name
+   CLOUDFLARE_R2_PUBLIC_URL=https://your-domain.com
    ```
-3. Run `pnpm install` and `pnpm dev` to install dependencies and run locally
+
+3. 运行 `pnpm install` 和 `pnpm dev` 来安装依赖并本地运行
+4. 在界面中添加您的 KatonAI API 密钥 (必需)
+
+## 获取 API 密钥
+
+访问 [KatonAI API 设置](https://api.katonai.dev/settings/api-keys) 来获取您的 API 密钥。

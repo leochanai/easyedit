@@ -2,10 +2,7 @@
 "use server";
 
 import { getAdjustedDimensions } from "@/lib/get-adjusted-dimentions";
-import { getIPAddress, getRateLimiter } from "@/lib/rate-limiter";
 import { z } from "zod";
-
-const ratelimit = getRateLimiter();
 
 const schema = z.object({
   imageUrl: z.string(),
@@ -14,8 +11,8 @@ const schema = z.object({
   height: z.number(),
   userAPIKey: z.string().nullable(),
   model: z
-    .enum(["flux-kontext-dev", "flux-kontext-pro"])
-    .default("flux-kontext-dev"),
+    .enum(["flux-kontext-pro", "flux-kontext-max"])
+    .default("flux-kontext-pro"),
 });
 
 export async function generateImage(
@@ -24,28 +21,17 @@ export async function generateImage(
   const { imageUrl, prompt, width, height, userAPIKey, model } =
     schema.parse(unsafeData);
 
-  if (ratelimit && !userAPIKey) {
-    const ipAddress = await getIPAddress();
-
-    const { success } = await ratelimit.limit(ipAddress);
-    if (!success) {
-      return {
-        success: false,
-        error:
-          "No requests left. Please add your own API key or try again in 24h.",
-      };
-    }
-  }
-
   const baseUrl = process.env.BASE_URL || "https://api.katonai.com";
-  const apiKey = userAPIKey || process.env.API_KEY;
 
-  if (!apiKey) {
+  // 强制要求用户提供 API 密钥
+  if (!userAPIKey) {
     return {
       success: false,
-      error: "API key is required. Please add your API key.",
+      error: "此版本需要 KatonAI API 密钥。请添加您的 API 密钥。",
     };
   }
+
+  const apiKey = userAPIKey;
 
   const adjustedDimensions = getAdjustedDimensions(width, height);
 
@@ -74,7 +60,7 @@ export async function generateImage(
         return {
           success: false,
           error:
-            "You need a paid KatonAI account to use this model. Please upgrade by purchasing credits.",
+            "您需要付费的 KatonAI 账户才能使用此模型。请通过购买积分升级。",
         };
       }
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -87,8 +73,7 @@ export async function generateImage(
     if (e.toString().includes("403")) {
       return {
         success: false,
-        error:
-          "You need a paid KatonAI account to use this model. Please upgrade by purchasing credits.",
+        error: "您需要付费的 KatonAI 账户才能使用此模型。请通过购买积分升级。",
       };
     }
   }
@@ -98,7 +83,7 @@ export async function generateImage(
   } else {
     return {
       success: false,
-      error: "Image could not be generated. Please try again.",
+      error: "无法生成图片。请重试。",
     };
   }
 }

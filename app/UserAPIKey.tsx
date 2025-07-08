@@ -22,13 +22,13 @@ export function UserAPIKey() {
   return (
     <div className="flex gap-3">
       <div className="text-left text-xs max-md:hidden">
-        <p className="text-gray-600">[Optional] Add your</p>
+        <p className="text-gray-600">[必需] 添加您的</p>
         <a
           href="https://api.katonai.dev/settings/api-keys"
           target="_blank"
           className="text-gray-300 underline"
         >
-          KatonAI API Key:
+          KatonAI API 密钥:
         </a>
       </div>
       <input
@@ -36,7 +36,7 @@ export function UserAPIKey() {
         value={userAPIKey}
         autoComplete="off"
         onChange={(e) => setUserAPIKey(e.target.value)}
-        placeholder="API key"
+        placeholder="API 密钥"
         className="h-8 rounded border-[0.5px] border-gray-700 bg-gray-900 px-2 text-sm focus-visible:outline focus-visible:outline-gray-200"
       />
     </div>

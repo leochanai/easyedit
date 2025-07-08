@@ -1,6 +1,5 @@
 "use server";
 
-import { getIPAddress, getRateLimiter } from "@/lib/rate-limiter";
 import dedent from "dedent";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -9,29 +8,20 @@ import { z } from "zod";
 const schema = z.array(z.string());
 // const jsonSchema = zodToJsonSchema(schema, { target: "openAi" });
 
-const ratelimit = getRateLimiter();
-
 export async function getSuggestions(
   imageUrl: string,
   userAPIKey: string | null,
 ) {
   invariant(typeof imageUrl === "string");
 
-  if (ratelimit && !userAPIKey) {
-    const ipAddress = await getIPAddress();
-
-    const { success } = await ratelimit.limit(`${ipAddress}-suggestions`);
-    if (!success) {
-      return [];
-    }
-  }
-
   const baseUrl = process.env.BASE_URL || "https://api.katonai.com";
-  const apiKey = userAPIKey || process.env.API_KEY;
 
-  if (!apiKey) {
+  // 强制要求用户提供 API 密钥
+  if (!userAPIKey) {
     return [];
   }
+
+  const apiKey = userAPIKey;
 
   try {
     const response = await fetch(`${baseUrl}/v1/chat/completions`, {
