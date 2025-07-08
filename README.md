@@ -7,6 +7,8 @@
   Edit images with a single prompt. Powered by Flux through KatonAI.
 </p>
 
+> **Note**: This project is forked from [Nutlope/easyedit](https://github.com/Nutlope/easyedit)
+
 ## Tech stack
 
 - Flux Kontext from BFL for the image model
