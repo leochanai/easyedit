@@ -6,16 +6,16 @@ export function UserAPIKey() {
   const [userAPIKey, setUserAPIKey] = useState(() => {
     // Only run in browser
     if (typeof window !== "undefined") {
-      return localStorage.getItem("togetherApiKey") || "";
+      return localStorage.getItem("katonaiApiKey") || "";
     }
     return "";
   });
 
   useEffect(() => {
     if (userAPIKey) {
-      localStorage.setItem("togetherApiKey", userAPIKey);
+      localStorage.setItem("katonaiApiKey", userAPIKey);
     } else {
-      localStorage.removeItem("togetherApiKey");
+      localStorage.removeItem("katonaiApiKey");
     }
   }, [userAPIKey]);
 
@@ -24,11 +24,11 @@ export function UserAPIKey() {
       <div className="text-left text-xs max-md:hidden">
         <p className="text-gray-600">[Optional] Add your</p>
         <a
-          href="https://api.together.xyz/settings/api-keys"
+          href="https://api.katonai.dev/settings/api-keys"
           target="_blank"
           className="text-gray-300 underline"
         >
-          Together API Key:
+          KatonAI API Key:
         </a>
       </div>
       <input

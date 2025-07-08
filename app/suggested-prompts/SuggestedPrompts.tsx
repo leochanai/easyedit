@@ -30,7 +30,7 @@ export function SuggestedPrompts({
     if (!cachedSuggestions) {
       const newSuggestions = await getSuggestions(
         imageUrl,
-        localStorage.getItem("togetherApiKey"),
+        localStorage.getItem("katonaiApiKey"),
       );
       cache.set(imageUrl, newSuggestions);
       cachedSuggestions = newSuggestions;

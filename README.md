@@ -4,13 +4,13 @@
 </a>
 
 <p align="center">
-  Edit images with a single prompt. Powered by Flux through Together.ai.
+  Edit images with a single prompt. Powered by Flux through KatonAI.
 </p>
 
 ## Tech stack
 
-- [Flux.1 Kontext](https://www.together.ai/blog/flux-1-kontext) from BFL for the image model
-- [Together AI](https://togetherai.link) for inference
+- Flux Kontext from BFL for the image model
+- [KatonAI](https://api.katonai.dev) for inference
 - Next.js app router with Tailwind
 - Helicone for observability
 - Plausible for website analytics
@@ -18,5 +18,9 @@
 ## Cloning & running
 
 1. Clone the repo: `git clone https://github.com/Nutlope/easyedit`
-2. Create a `.env.local` file and add your [Together AI API key](https://togetherai.link): `TOGETHER_API_KEY=`
+2. Create a `.env.local` file and add your KatonAI API configuration:
+   ```
+   BASE_URL=https://your-katonai-endpoint.com
+   API_KEY=your-api-key
+   ```
 3. Run `npm install` and `npm run dev` to install dependencies and run locally

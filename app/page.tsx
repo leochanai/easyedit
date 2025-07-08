@@ -29,9 +29,8 @@ export default function Home() {
   const [prompt, setPrompt] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const [selectedModel, setSelectedModel] = useState<
-    | "black-forest-labs/FLUX.1-kontext-dev"
-    | "black-forest-labs/FLUX.1-kontext-pro"
-  >("black-forest-labs/FLUX.1-kontext-dev");
+    "flux-kontext-dev" | "flux-kontext-pro"
+  >("flux-kontext-dev");
   const [hasApiKey, setHasApiKey] = useState(false);
 
   const activeImage = images.find((i) => i.url === activeImageUrl);
@@ -57,13 +56,13 @@ export default function Home() {
 
   useEffect(() => {
     const checkApiKey = () => {
-      const apiKey = localStorage.getItem("togetherApiKey");
+      const apiKey = localStorage.getItem("katonaiApiKey");
       const hasKey = !!apiKey;
       setHasApiKey(hasKey);
 
       // If Pro model is selected but no API key, switch to Dev model
-      if (!hasKey && selectedModel === "black-forest-labs/FLUX.1-kontext-pro") {
-        setSelectedModel("black-forest-labs/FLUX.1-kontext-dev");
+      if (!hasKey && selectedModel === "flux-kontext-pro") {
+        setSelectedModel("flux-kontext-dev");
       }
     };
 
@@ -264,7 +263,7 @@ export default function Home() {
                           prompt,
                           width: imageData.width,
                           height: imageData.height,
-                          userAPIKey: localStorage.getItem("togetherApiKey"),
+                          userAPIKey: localStorage.getItem("katonaiApiKey"),
                           model: selectedModel,
                         });
 
@@ -308,15 +307,15 @@ export default function Home() {
                           }
                           className="w-full appearance-none rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          <option value="black-forest-labs/FLUX.1-kontext-dev">
+                          <option value="flux-kontext-dev">
                             Flux Kontext Dev
                           </option>
                           <option
-                            value="black-forest-labs/FLUX.1-kontext-pro"
+                            value="flux-kontext-pro"
                             disabled={!hasApiKey}
                           >
                             Flux Kontext Pro{" "}
-                            {!hasApiKey && "(Together API key required)"}
+                            {!hasApiKey && "(KatonAI API key required)"}
                           </option>
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
@@ -335,14 +334,12 @@ export default function Home() {
                           </svg>
                         </div>
                       </div>
-                      {!hasApiKey &&
-                        selectedModel ===
-                          "black-forest-labs/FLUX.1-kontext-pro" && (
-                          <p className="mt-1 text-xs text-amber-400">
-                            Pro model requires an API key. Please add your
-                            Together AI API key to use this model.
-                          </p>
-                        )}
+                      {!hasApiKey && selectedModel === "flux-kontext-pro" && (
+                        <p className="mt-1 text-xs text-amber-400">
+                          Pro model requires an API key. Please add your KatonAI
+                          API key to use this model.
+                        </p>
+                      )}
                     </div>
 
                     <Fieldset className="relative rounded-xl bg-gray-900">

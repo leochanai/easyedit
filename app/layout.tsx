@@ -115,7 +115,7 @@ export default function RootLayout({
           <p className="text-sm text-gray-400">
             Powered by{" "}
             <a
-              href="https://www.together.ai/blog/flux-1-kontext"
+              href="https://api.katonai.dev"
               target="_blank"
               className="text-gray-200 underline underline-offset-2"
             >
@@ -123,11 +123,11 @@ export default function RootLayout({
             </a>{" "}
             on{" "}
             <a
-              href="https://togetherai.link"
+              href="https://api.katonai.dev"
               target="_blank"
               className="text-gray-200 underline underline-offset-2"
             >
-              Together AI
+              KatonAI
             </a>
           </p>
           <div className="flex gap-3 text-sm">

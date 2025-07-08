@@ -26,7 +26,6 @@
     "sonner": "^2.0.5",
     "tailwind-merge": "^3.3.0",
     "tiny-invariant": "^1.3.3",
-    "together-ai": "^0.16.0",
     "zod": "^3.25.48",
     "zod-to-json-schema": "^3.24.5"
   },
@@ -42,6 +41,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "undici": "^7.11.0"
   }
 }

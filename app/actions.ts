@@ -2,7 +2,6 @@
 "use server";
 
 import { getAdjustedDimensions } from "@/lib/get-adjusted-dimentions";
-import { getTogether } from "@/lib/get-together";
 import { getIPAddress, getRateLimiter } from "@/lib/rate-limiter";
 import { z } from "zod";
 
@@ -15,11 +14,8 @@ const schema = z.object({
   height: z.number(),
   userAPIKey: z.string().nullable(),
   model: z
-    .enum([
-      "black-forest-labs/FLUX.1-kontext-dev",
-      "black-forest-labs/FLUX.1-kontext-pro",
-    ])
-    .default("black-forest-labs/FLUX.1-kontext-dev"),
+    .enum(["flux-kontext-dev", "flux-kontext-pro"])
+    .default("flux-kontext-dev"),
 });
 
 export async function generateImage(
@@ -41,28 +37,58 @@ export async function generateImage(
     }
   }
 
-  const together = getTogether(userAPIKey);
+  const baseUrl = process.env.BASE_URL || "https://api.katonai.com";
+  const apiKey = userAPIKey || process.env.API_KEY;
+
+  if (!apiKey) {
+    return {
+      success: false,
+      error: "API key is required. Please add your API key.",
+    };
+  }
+
   const adjustedDimensions = getAdjustedDimensions(width, height);
+
+  // 将 image_url 拼接在 prompt 最开始
+  const fullPrompt = `${imageUrl} ${prompt}`;
 
   let url;
   try {
-    const json = await together.images.create({
-      model,
-      prompt,
-      width: adjustedDimensions.width,
-      height: adjustedDimensions.height,
-      image_url: imageUrl,
+    const response = await fetch(`${baseUrl}/v1/images/generations`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model,
+        prompt: fullPrompt,
+        width: adjustedDimensions.width,
+        height: adjustedDimensions.height,
+        n: 1,
+      }),
     });
 
+    if (!response.ok) {
+      if (response.status === 403) {
+        return {
+          success: false,
+          error:
+            "You need a paid KatonAI account to use this model. Please upgrade by purchasing credits.",
+        };
+      }
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const json = await response.json();
     url = json.data[0].url;
   } catch (e: any) {
     console.log(e);
-    // if the error contains "403", then it's a rate limit error
     if (e.toString().includes("403")) {
       return {
         success: false,
         error:
-          "You need a paid Together AI account to use the Pro model. Please upgrade by purchasing credits here: https://api.together.xyz/settings/billing.",
+          "You need a paid KatonAI account to use this model. Please upgrade by purchasing credits.",
       };
     }
   }

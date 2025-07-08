@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
+if (isDev) {
+  require("./proxy-setup");
+}
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -9,7 +15,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "api.together.ai",
+        hostname: "replicate.delivery",
       },
       {
         protocol: "https",
