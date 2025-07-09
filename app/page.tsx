@@ -238,9 +238,7 @@ export default function Home() {
                     <p className="animate-pulse text-xl text-white">
                       正在编辑您的图片...
                     </p>
-                    <p className="text-sm text-gray-400">
-                      这可能需要最多 15 秒钟。
-                    </p>
+                    <p className="text-sm text-gray-400">请您耐心等待⌛️</p>
                   </div>
                 )}
               </div>
