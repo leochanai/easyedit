@@ -4,15 +4,14 @@
 </a>
 
 <p align="center">
-  用一个提示编辑图片。由 KatonAI 提供的 Flux Kontext 驱动。
+  用一个提示词编辑图片，由 KatonAI 提供的 Flux Kontext 驱动。
 </p>
 
-> **注意**: 此项目 fork 自 [Nutlope/easyedit](https://github.com/Nutlope/easyedit)
+> **注**: 项目 fork 自 [Nutlope/easyedit](https://github.com/Nutlope/easyedit)
 
 ## 技术栈
 
-- Flux Kontext Pro/Max 模型来自 BFL
-- [KatonAI](https://api.katonai.dev) 用于推理
+- Flux Kontext Pro/Max API 来自 [KatonAI](https://api.katonai.dev)
 - Next.js app router 和 Tailwind
 - Cloudflare R2 用于图片存储
 - Plausible 用于网站分析
