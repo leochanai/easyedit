@@ -115,15 +115,15 @@ export default function RootLayout({
           <p className="text-sm text-gray-400">
             由{" "}
             <a
-              href="https://api.katonai.dev"
+              href="https://fal.ai"
               target="_blank"
               className="text-gray-200 underline underline-offset-2"
             >
-              KatonAI
+              fal.ai
             </a>{" "}
             提供的{" "}
             <a
-              href="https://api.katonai.dev"
+              href="https://fal.ai"
               target="_blank"
               className="text-gray-200 underline underline-offset-2"
             >

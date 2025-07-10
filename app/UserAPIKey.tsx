@@ -6,16 +6,16 @@ export function UserAPIKey() {
   const [userAPIKey, setUserAPIKey] = useState(() => {
     // Only run in browser
     if (typeof window !== "undefined") {
-      return localStorage.getItem("katonaiApiKey") || "";
+      return localStorage.getItem("falaiApiKey") || "";
     }
     return "";
   });
 
   useEffect(() => {
     if (userAPIKey) {
-      localStorage.setItem("katonaiApiKey", userAPIKey);
+      localStorage.setItem("falaiApiKey", userAPIKey);
     } else {
-      localStorage.removeItem("katonaiApiKey");
+      localStorage.removeItem("falaiApiKey");
     }
   }, [userAPIKey]);
 
@@ -24,7 +24,7 @@ export function UserAPIKey() {
       <div className="text-left text-xs max-md:hidden">
         <p className="text-gray-600">[必需] 添加您的</p>
         <a
-          href="https://docs.katonai.dev/guide/basic/inner_usage.html#%E5%88%9B%E5%BB%BA%E4%BB%A4%E7%89%8C"
+          href="https://fal.ai/dashboard/keys"
           target="_blank"
           className="text-gray-300 underline"
         >

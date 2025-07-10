@@ -29,8 +29,8 @@ export default function Home() {
   const [prompt, setPrompt] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const [selectedModel, setSelectedModel] = useState<
-    "flux-kontext-pro" | "flux-kontext-max"
-  >("flux-kontext-pro");
+    "flux-pro/kontext"
+  >("flux-pro/kontext");
 
   const activeImage = images.find((i) => i.url === activeImageUrl);
   const lastImage = images.at(-1);
@@ -55,11 +55,11 @@ export default function Home() {
 
   useEffect(() => {
     const checkApiKey = () => {
-      const apiKey = localStorage.getItem("katonaiApiKey");
+      const apiKey = localStorage.getItem("falaiApiKey");
       const hasKey = !!apiKey;
       // 如果没有 API 密钥，则使用 Pro 模型作为默认
-      if (!hasKey && selectedModel === "flux-kontext-max") {
-        setSelectedModel("flux-kontext-pro");
+      if (!hasKey && selectedModel !== "flux-pro/kontext") {
+        setSelectedModel("flux-pro/kontext");
       }
     };
 
@@ -258,7 +258,7 @@ export default function Home() {
                           prompt,
                           width: imageData.width,
                           height: imageData.height,
-                          userAPIKey: localStorage.getItem("katonaiApiKey"),
+                          userAPIKey: localStorage.getItem("falaiApiKey"),
                           model: selectedModel,
                         });
 
@@ -302,11 +302,8 @@ export default function Home() {
                           }
                           className="w-full appearance-none rounded-lg border border-gray-700 bg-gray-800 px-3 py-2 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                         >
-                          <option value="flux-kontext-pro">
-                            Flux Kontext Pro
-                          </option>
-                          <option value="flux-kontext-max">
-                            Flux Kontext Max
+                          <option value="flux-pro/kontext">
+                            Flux Pro Kontext
                           </option>
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">

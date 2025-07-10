@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-EasyEdit is a Next.js application for image editing using AI prompts. It's powered by KatonAI's Flux Kontext API and uses Cloudflare R2 for image storage. The project is a fork of Nutlope/easyedit, specifically modified to work with KatonAI's API.
+EasyEdit is a Next.js application for image editing using AI prompts. It's powered by fal.ai's Flux Kontext API using the official @fal-ai/client SDK and uses Cloudflare R2 for image storage. The project is a fork of Nutlope/easyedit, specifically modified to work with fal.ai's API.
 
 ## Development Commands
 
@@ -30,13 +30,13 @@ EasyEdit is a Next.js application for image editing using AI prompts. It's power
 - `app/UserAPIKey.tsx` - API key management component
 
 ### API Integration
-- **KatonAI Flux Kontext API** - Image generation via `/v1/images/generations`
+- **fal.ai Flux Kontext API** - Image generation via official @fal-ai/client SDK
 - **Cloudflare R2** - Image storage via S3-compatible API
 - **Rate limiting** - Uses Upstash Redis for API rate limiting
 
 ### Data Flow
 1. User uploads image or selects sample → stored in R2 → URL returned
-2. User enters prompt → combined with image URL → sent to KatonAI API
+2. User enters prompt → sent with image URL to fal.ai API
 3. Generated image → stored in R2 → displayed in gallery
 4. Image versions tracked with incremental version numbers
 
@@ -44,7 +44,7 @@ EasyEdit is a Next.js application for image editing using AI prompts. It's power
 
 ### Environment Variables (`.env.local`)
 ```
-BASE_URL=https://api.katonai.dev
+# fal.ai SDK is used - no BASE_URL needed
 CLOUDFLARE_R2_ACCOUNT_ID=your_account_id
 CLOUDFLARE_R2_ACCESS_KEY_ID=your_access_key_id
 CLOUDFLARE_R2_SECRET_ACCESS_KEY=your_secret_access_key
@@ -53,9 +53,10 @@ CLOUDFLARE_R2_PUBLIC_URL=https://your-domain.com
 ```
 
 ### API Key Requirement
-- KatonAI API key required for all image generation
-- Stored in localStorage as `katonaiApiKey`
-- Only supports Flux Kontext Pro and Max models
+- fal.ai API key required for all image generation
+- Stored in localStorage as `falaiApiKey`
+- Only supports Flux Kontext Pro model
+- Uses official @fal-ai/client SDK with subscribe method
 
 ## Development Notes
 
