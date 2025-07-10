@@ -53,29 +53,8 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    const checkApiKey = () => {
-      const apiKey = localStorage.getItem("falaiApiKey");
-      const hasKey = !!apiKey;
-      // 如果没有 API 密钥，则使用 Pro 模型作为默认
-      if (!hasKey && selectedModel !== "flux-pro/kontext") {
-        setSelectedModel("flux-pro/kontext");
-      }
-    };
-
-    checkApiKey();
-
-    // Listen for storage events (when localStorage changes in other tabs)
-    window.addEventListener("storage", checkApiKey);
-
-    // Poll for API key changes every 500ms to catch changes in the same tab
-    const interval = setInterval(checkApiKey, 500);
-
-    return () => {
-      window.removeEventListener("storage", checkApiKey);
-      clearInterval(interval);
-    };
-  }, [selectedModel]);
+  // API 密钥现在从服务器环境变量读取，无需检查 localStorage
+  // useEffect 已移除
 
   async function handleDownload() {
     if (!activeImage) return;
@@ -258,7 +237,6 @@ export default function Home() {
                           prompt,
                           width: imageData.width,
                           height: imageData.height,
-                          userAPIKey: localStorage.getItem("falaiApiKey"),
                           model: selectedModel,
                         });
 

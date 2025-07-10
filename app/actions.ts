@@ -10,7 +10,6 @@ const schema = z.object({
   prompt: z.string(),
   width: z.number(),
   height: z.number(),
-  userAPIKey: z.string().nullable(),
   model: z
     .enum(["flux-pro/kontext"])
     .default("flux-pro/kontext"),
@@ -22,24 +21,25 @@ export async function generateImage(
   console.log("=== 开始图片生成 ===");
   console.log("原始数据:", unsafeData);
   
-  const { imageUrl, prompt, width, height, userAPIKey } =
+  const { imageUrl, prompt, width, height } =
     schema.parse(unsafeData);
 
-  console.log("解析后的数据:", { imageUrl, prompt, width, height, userAPIKey: userAPIKey ? "已提供" : "未提供" });
+  console.log("解析后的数据:", { imageUrl, prompt, width, height });
 
-  // 强制要求用户提供 API 密钥
-  if (!userAPIKey) {
-    console.log("错误: 缺少 API 密钥");
+  // 从环境变量获取 API 密钥
+  const apiKey = process.env.FAL_AI_API_KEY;
+  if (!apiKey) {
+    console.log("错误: 缺少 FAL_AI_API_KEY 环境变量");
     return {
       success: false,
-      error: "此版本需要 fal.ai API 密钥。请添加您的 API 密钥。",
+      error: "服务器配置错误：缺少 fal.ai API 密钥。请联系管理员。",
     };
   }
 
   // 配置 fal.ai 客户端
   console.log("配置 fal.ai 客户端");
   fal.config({
-    credentials: userAPIKey,
+    credentials: apiKey,
   });
 
   const adjustedDimensions = getAdjustedDimensions(width, height);

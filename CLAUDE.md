@@ -44,7 +44,10 @@ EasyEdit is a Next.js application for image editing using AI prompts. It's power
 
 ### Environment Variables (`.env.local`)
 ```
-# fal.ai SDK is used - no BASE_URL needed
+# fal.ai API 配置
+FAL_AI_API_KEY=your_fal_ai_api_key
+
+# Cloudflare R2 配置
 CLOUDFLARE_R2_ACCOUNT_ID=your_account_id
 CLOUDFLARE_R2_ACCESS_KEY_ID=your_access_key_id
 CLOUDFLARE_R2_SECRET_ACCESS_KEY=your_secret_access_key
@@ -54,9 +57,10 @@ CLOUDFLARE_R2_PUBLIC_URL=https://your-domain.com
 
 ### API Key Requirement
 - fal.ai API key required for all image generation
-- Stored in localStorage as `falaiApiKey`
+- Configured via `FAL_AI_API_KEY` environment variable
 - Only supports Flux Kontext Pro model
 - Uses official @fal-ai/client SDK with subscribe method
+- No user interface for API key input (server-side configuration)
 
 ## Development Notes
 

@@ -18,7 +18,7 @@
 
 ## 重要说明
 
-**此版本只支持 Flux Kontext Pro 模型，需要 fal.ai API 密钥。**
+**此版本只支持 Flux Kontext Pro 模型，需要在环境变量中配置 fal.ai API 密钥。**
 
 ## 克隆和运行
 
@@ -26,8 +26,8 @@
 2. 创建 `.env.local` 文件并添加您的配置:
 
    ```
-   # fal.ai API endpoint (hardcoded in actions.ts)
-   # BASE_URL=https://fal.ai/models/fal-ai/flux-pro/kontext/api
+   # fal.ai API 配置
+   FAL_AI_API_KEY=your_fal_ai_api_key
 
    # Cloudflare R2 配置
    CLOUDFLARE_R2_ACCOUNT_ID=your_account_id
@@ -38,7 +38,7 @@
    ```
 
 3. 运行 `pnpm install` 和 `pnpm dev` 来安装依赖并本地运行
-4. 在界面中添加您的 fal.ai API 密钥 (必需)
+4. 在 `.env.local` 中添加您的 fal.ai API 密钥 (必需)
 
 ## 获取 API 密钥
 

@@ -3,7 +3,7 @@ import { Kulim_Park, Syne_Mono } from "next/font/google";
 import "./globals.css";
 import { Logo } from "./Logo";
 import PlausibleProvider from "next-plausible";
-import { UserAPIKey } from "./UserAPIKey";
+// import { UserAPIKey } from "./UserAPIKey"; // 已移除，API 密钥从环境变量读取
 import { Toaster } from "@/components/ui/sonner";
 import GitHub from "./components/GitHubIcon";
 import XformerlyTwitter from "./components/TwitterIcon";
@@ -67,14 +67,10 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-screen w-full flex-col antialiased">
         <header className="relative flex p-4 text-center text-white">
-          <UserAPIKey />
-          <a
-            href="https://katon-easyedit.vercel.app"
-            className="absolute left-1/2 flex grow -translate-x-1/2 items-center gap-2 text-lg max-md:hidden"
-          >
+          <div className="flex items-center gap-2 text-lg">
             <Logo />
             EasyEdit
-          </a>
+          </div>
 
           <div className="absolute top-4 right-4 flex gap-2">
             <a

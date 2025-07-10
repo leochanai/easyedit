@@ -30,7 +30,7 @@ export function SuggestedPrompts({
     if (!cachedSuggestions) {
       const newSuggestions = await getSuggestions(
         imageUrl,
-        localStorage.getItem("falaiApiKey"),
+        null, // API 密钥现在从服务器环境变量读取
       );
       cache.set(imageUrl, newSuggestions);
       cachedSuggestions = newSuggestions;
