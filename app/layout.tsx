@@ -6,7 +6,7 @@ import PlausibleProvider from "next-plausible";
 // import { UserAPIKey } from "./UserAPIKey"; // 已移除，API 密钥从环境变量读取
 import { Toaster } from "@/components/ui/sonner";
 // import GitHub from "./components/GitHubIcon"; // 已移除 GitHub 链接
-import XformerlyTwitter from "./components/TwitterIcon";
+// import XformerlyTwitter from "./components/TwitterIcon"; // 已移除 Twitter 链接
 import { PlusIcon } from "./components/PlusIcon";
 
 const kulimPark = Kulim_Park({
@@ -89,7 +89,7 @@ export default function RootLayout({
 
         <Toaster />
 
-        <footer className="flex flex-col items-center p-4 max-md:gap-4 md:flex-row md:justify-between">
+        <footer className="flex flex-col items-center p-4">
           <p className="text-sm text-gray-400">
             由{" "}
             <a
@@ -109,16 +109,6 @@ export default function RootLayout({
             </a>{" "}
             驱动
           </p>
-          <div className="flex gap-3 text-sm">
-            <a
-              href="https://x.com/hellokaton"
-              target="_blank"
-              className="flex h-7 items-center gap-1 rounded border-[0.5px] border-gray-700 px-2.5 text-gray-400 transition-colors hover:border-gray-300 hover:text-gray-300"
-            >
-              <XformerlyTwitter className="size-[10px]" />
-              Twitter
-            </a>
-          </div>
         </footer>
       </body>
     </html>
