@@ -25,7 +25,7 @@ EasyEdit is a Next.js application for image editing using AI prompts. It's power
 ### Key Components
 - `app/page.tsx` - Main interface with image gallery and editing form
 - `app/ImageUploader.tsx` - Handles file uploads and sample image selection
-- `app/actions.ts` - Server action for KatonAI API integration
+- `app/actions.ts` - Server action for Fal.ai API integration
 - `app/suggested-prompts/` - AI-powered prompt suggestions
 - `app/UserAPIKey.tsx` - API key management component
 

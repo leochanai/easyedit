@@ -30,7 +30,7 @@
 创建 `.env.local` 文件，并添加以下配置：
 
 ```env
-BASE_URL=https://api.katonai.dev
+BASE_URL=https://api.Fal.ai.dev
 
 # Cloudflare R2 Configuration
 CLOUDFLARE_R2_ACCOUNT_ID=your_account_id
