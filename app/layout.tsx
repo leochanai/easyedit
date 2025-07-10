@@ -74,7 +74,7 @@ export default function RootLayout({
 
           <div className="absolute top-4 right-4 flex gap-2">
             <a
-              href="https://katon-easyedit.vercel.app"
+              href="/"
               className="hidden h-8 cursor-pointer items-center gap-2 rounded border-[0.5px] border-gray-700 bg-gray-900 px-3.5 text-gray-200 transition hover:bg-gray-800 md:flex"
             >
               <PlusIcon />
