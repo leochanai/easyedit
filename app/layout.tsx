@@ -5,7 +5,7 @@ import { Logo } from "./Logo";
 import PlausibleProvider from "next-plausible";
 // import { UserAPIKey } from "./UserAPIKey"; // 已移除，API 密钥从环境变量读取
 import { Toaster } from "@/components/ui/sonner";
-import GitHub from "./components/GitHubIcon";
+// import GitHub from "./components/GitHubIcon"; // 已移除 GitHub 链接
 import XformerlyTwitter from "./components/TwitterIcon";
 import { PlusIcon } from "./components/PlusIcon";
 
@@ -74,24 +74,6 @@ export default function RootLayout({
 
           <div className="absolute top-4 right-4 flex gap-2">
             <a
-              href="https://github.com/hellokaton/easyedit"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-8 cursor-pointer items-center gap-2 rounded border-[0.5px] border-gray-700 bg-gray-900 px-3.5 text-gray-200 transition hover:bg-gray-800"
-              title="在 GitHub 上点赞"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                className="h-4 w-4 text-yellow-400"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" />
-              </svg>
-              <GitHub className="h-4 w-4" />
-              <span className="hidden md:inline">在 GitHub 上点赞</span>
-            </a>
-            <a
               href="https://katon-easyedit.vercel.app"
               className="hidden h-8 cursor-pointer items-center gap-2 rounded border-[0.5px] border-gray-700 bg-gray-900 px-3.5 text-gray-200 transition hover:bg-gray-800 md:flex"
             >
@@ -128,14 +110,6 @@ export default function RootLayout({
             驱动
           </p>
           <div className="flex gap-3 text-sm">
-            <a
-              href="https://github.com/hellokaton/easyedit"
-              target="_blank"
-              className="flex h-7 items-center gap-1 rounded border-[0.5px] border-gray-700 px-2.5 text-gray-400 transition-colors hover:border-gray-300 hover:text-gray-300"
-            >
-              <GitHub className="size-[10px]" />
-              GitHub
-            </a>
             <a
               href="https://x.com/hellokaton"
               target="_blank"
