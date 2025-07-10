@@ -2,19 +2,9 @@ import Image from "next/image";
 
 const sampleImages = [
   {
-    url: "/image1.webp",
-    height: 1752,
-    width: 986,
-  },
-  {
-    url: "/image2.webp",
-    height: 1365,
-    width: 2048,
-  },
-  {
-    url: "/image3.webp",
-    width: 1408,
-    height: 792,
+    url: "https://pub-c028c3cb793847b19316e2b1985cbc4d.r2.dev/example.jpg",
+    height: 1024,
+    width: 1024,
   },
 ];
 
